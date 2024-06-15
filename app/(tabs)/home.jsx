@@ -3,33 +3,44 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 
 import { images } from "../../constants";
-//import useAppwrite from "../../lib/useAppwrite";
-//import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
-//import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
+import useAppwrite from "../../lib/useAppwrite";
+import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
+import VideoCard from "../../components/VideoCard";
 
 const Home = () => {
-  //const { data: posts, refetch } = useAppwrite(getAllPosts);
-  //const { data: latestPosts } = useAppwrite(getLatestPosts);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
-    //await refetch();
+    await refetch();
     setRefreshing(false);
   };
 
-  
+  // one flatlist
+  // with list header
+  // and horizontal flatlist
+
+  //  we cannot do that with just scrollview as there's both horizontal and vertical scroll (two flat lists, within trending)
+
   return (
     <SafeAreaView className="bg-primary">
       <FlatList
-      data={[{id:1},{id:2},{id:3},]}
+        data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <Text className = "text-3xl text-white">{item.id}</Text>
+          <VideoCard
+            title={item.title}
+            thumbnail={item.thumbnail}
+            video={item.video}
+            // creator={item.creator.username}
+            // avatar={item.creator.avatar}
+          />
         )}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">
@@ -59,7 +70,7 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              <Trending posts={[{id:1},{id:2},{id:3}]?? []} />
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
@@ -71,7 +82,7 @@ const Home = () => {
         )}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        } 
+        }
       />
     </SafeAreaView>
   );
