@@ -4,16 +4,13 @@ import { View, Text, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "../constants";
-
-import CustomButton from "../components/CustomButton";
-import Loader from "../components/Loader";
+import { CustomButton, Loader } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 const Welcome = () => {
   const { loading, isLogged } = useGlobalContext();
 
-  // if (!loading && isLogged) return <Redirect href="/home" />;
-  return <Redirect href="/home" />;
+  if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -27,7 +24,7 @@ const Welcome = () => {
         <View className="w-full flex justify-center items-center h-full px-4">
           <Image
             source={images.logo}
-            className="w-[130px] h-[84px]"
+            className="w-[300px] h-[200px]"
             resizeMode="contain"
           />
 
@@ -38,10 +35,10 @@ const Welcome = () => {
           />
 
           <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
+            <Text className="text-2xl text-white font-bold text-center">
               Discover Endless{"\n"}
               Possibilities with{" "}
-              <Text className="text-secondary-200">Aora</Text>
+              <Text className="text-secondary-200">widstream</Text>
             </Text>
 
             <Image
@@ -53,7 +50,7 @@ const Welcome = () => {
 
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
+            Exploration with widstream
           </Text>
 
           <CustomButton

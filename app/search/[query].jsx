@@ -5,15 +5,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import useAppwrite from "../../lib/useAppwrite";
 import { searchPosts } from "../../lib/appwrite";
-import EmptyState from "../../components/EmptyState";
-import VideoCard from "../../components/VideoCard";
-import SearchInput from "../../components/SearchInput";
+import { EmptyState, SearchInput, VideoCard } from "../../components";
 
 const Search = () => {
   const { query } = useLocalSearchParams();
   const { data: posts, refetch } = useAppwrite(() => searchPosts(query));
 
-  // console.log(query, posts);
   useEffect(() => {
     refetch();
   }, [query]);

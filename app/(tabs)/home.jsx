@@ -5,10 +5,7 @@ import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
-import SearchInput from "../../components/SearchInput";
-import Trending from "../../components/Trending";
-import EmptyState from "../../components/EmptyState";
-import VideoCard from "../../components/VideoCard";
+import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
@@ -50,14 +47,14 @@ const Home = () => {
                   Welcome Back
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
+                 widstream
                 </Text>
               </View>
 
               <View className="mt-1.5">
                 <Image
                   source={images.logoSmall}
-                  className="w-9 h-10"
+                  className="w-9 h-5"
                   resizeMode="contain"
                 />
               </View>
